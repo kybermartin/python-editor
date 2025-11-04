@@ -66,6 +66,8 @@ app.add_middleware(
 
 class CodeRequest(BaseModel):
     code: str
+    stdin: str | None = ""
+
 
 class ScriptRequest(BaseModel):
     title: str

@@ -82,7 +82,11 @@ def root():
 def run_code(req: CodeRequest):
     if not JUDGE0_KEY:
         raise HTTPException(status_code=500, detail="Judge0 API key not set (JUDGE0_API_KEY).")
-    payload = {"language_id": 71, "source_code": req.code, "stdin": ""}
+    payload = {
+        "language_id": 71,
+        "source_code": req.code,
+        "stdin": req.stdin or ""
+    }
     response = requests.post(JUDGE0_URL, json=payload, headers=HEADERS, timeout=30)
     if response.status_code != 200:
         raise HTTPException(status_code=500, detail=f"Judge0 error: {response.status_code}")
